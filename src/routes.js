@@ -1,9 +1,11 @@
 import React from 'react';
 import {Route, Router} from 'react-router-dom';
-import App from './App';
 import Home from './Home/Home';
 import Auth from './Auth/Auth';
 import history from './History';
+import './routes.css';
+import NavBar from "./NavBar/NavBar";
+import Redirect from "react-router-dom/es/Redirect";
 
 const auth = new Auth();
 
@@ -17,18 +19,20 @@ export default function makeMainRoutes() {
     return (
         <Router history={history}>
             <div>
-                <Route path="/" render={
-                    props => <App auth={auth} history={props.history}/>
-                }/>
-                <Route path="/home" render={
-                    () => <Home auth={auth}/>
-                }/>
-                <Route path="/callback" render={
-                    props => {
-                        handleAuthentication(props);
-                        return <p>loading</p>
-                    }
-                }/>
+                <NavBar history={history}/>
+                <div className="app">
+                    <Route exact path="/" render={
+                        () => (<Redirect to="/dashboard"/>)
+                    }/>
+                    <Route path="/dashboard" render={
+                        () => <Home auth={auth}/>
+                    }/>
+                    <Route path="/callback" render={
+                        props => {
+                            handleAuthentication(props);
+                            return <p>loading</p>
+                        }
+                    }/></div>
             </div>
         </Router>
     );

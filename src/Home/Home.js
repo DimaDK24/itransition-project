@@ -11,18 +11,16 @@ class Home extends Component {
             <div>
                 {
                     isAuthenticated() && (
-                        <h4>
-                            You are logged in!
-                        </h4>
+                        <h4>You are logged in!</h4>
                     )
                 }
                 {
                     !isAuthenticated() && (
                         <h4>
                             You are not logged in! Please{' '}
-                            <button onClick={this.login.bind(this)}>
+                            <a href="#" onClick={this.login.bind(this)}>
                                 Log In
-                            </button>
+                            </a>
                             {' '}to continue.
                         </h4>
                     )
